@@ -1,17 +1,17 @@
-# Qworum user API client
-
-A client library for Qworum's user API server.
-
 <p align="left">
-<a href="https://qworum.net" target="_blank" rel="noreferrer"><img src="https://github.com/doga/doga/raw/main/logos/Qworum-logo.svg" height="85" alt="Qworum" /></a>
+<a href="https://rdf.js.org/" target="_blank" rel="noreferrer"><img src="https://github.com/doga/doga/raw/main/logos/rdf.svg" height="85" alt="RDF logo" /></a>
 </p>
+
+# An RDF-JSON parser
+
+A JavaScript library for parsing RDF-JSON.
 
 ## Usage examples
 
 _Tip: Run the examples below by typing this in your terminal (requires [Deno](https://deno.com/) 2+):_
 
 ```shell
-deno run --allow-net --allow-run --allow-env --allow-read jsr:@andrewbrey/mdrb@3.0.4 --dax=false --mode=isolated README.md
+deno run --allow-net --allow-run --allow-env --allow-read jsr:@andrewbrey/mdrb@3.0.4 --dax=false --mode=isolated https://raw.githubusercontent.com/doga/rdf-json-parser/refs/heads/main/README.md
 ```
 
 <details data-mdrb>
@@ -25,7 +25,7 @@ Parse an RDF-JSON object and produce an RDF dataset.
 </details>
 
 ```javascript
-import {parse} from 'https://esm.sh/gh/doga/rdf-json-parser@1.0.0/mod.mjs';
+import {parse} from 'https://esm.sh/gh/doga/rdf-json-parser@1.0.1/mod.mjs';
 
 const rdfDataset = 
 parse({
