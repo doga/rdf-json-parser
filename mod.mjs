@@ -1,1 +1,2 @@
-export {parse} from "./lib/rdf-json-parser.mjs";
+export {parse} from "./lib/parse.mjs";
+export {serialise} from "./lib/serialise.mjs";

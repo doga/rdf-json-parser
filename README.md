@@ -15,20 +15,20 @@ deno run --allow-net --allow-run --allow-env --allow-read jsr:@andrewbrey/mdrb@3
 ```
 
 <details data-mdrb>
-<summary>Parse RDF-JSON</summary>
+<summary>RDF-JSON serialisation</summary>
 
 <pre>
 description = '''
-Parse an RDF-JSON object and produce an RDF dataset.
+Parse RDF-JSON to and RDF dataset, and back to RDF-JSON.
 '''
 </pre>
 </details>
 
 ```javascript
-import {parse} from 'https://esm.sh/gh/doga/rdf-json-parser@1.0.1/mod.mjs';
+import {parse, serialise} from 'https://esm.sh/gh/doga/rdf-json-parser@1.1.0/mod.mjs';
 
-const rdfDataset = 
-parse({
+const 
+rdfJsonIn = {
   "http://example.org/about" : {
     "http://purl.org/dc/terms/title" : [
       { "value" : "Anna's Homepage", "type" : "literal", "lang" : "en" },
@@ -37,9 +37,11 @@ parse({
       { "value" : "_:bbb", "type" : "uri"} 
     ] 
   }
-});
+},
+rdfDataset = parse(rdfJsonIn),
+rdfJsonOut = serialise(rdfDataset);
 
-console.info('Quads in the dataset:');
+console.info('Quads in the RDF dataset:');
 for (const quad of rdfDataset) {
   console.info('  Quad:');
   // print subject type
@@ -47,12 +49,17 @@ for (const quad of rdfDataset) {
   console.info(`    predicate "${quad.predicate.value}" is a ${quad.predicate.termType}`);
   console.info(`    object "${quad.object.value}" is a ${quad.object.termType}`);
 }
+
+console.info(`
+RDF-JSON serialisation of the dataset:
+${JSON.stringify(rdfJsonOut, null, 2)}
+`);
 ```
 
 Sample output for the code above:
 
 ```text
-Quads in the dataset:
+Quads in the RDF dataset:
   Quad:
     subject "http://example.org/about" is a NamedNode
     predicate "http://purl.org/dc/terms/title" is a NamedNode
@@ -69,6 +76,31 @@ Quads in the dataset:
     subject "http://example.org/about" is a NamedNode
     predicate "http://purl.org/dc/terms/title" is a NamedNode
     object "bbb" is a BlankNode
+
+RDF-JSON serialisation of the dataset:
+{
+  "http://example.org/about": {
+    "http://purl.org/dc/terms/title": [
+      {
+        "value": "Anna's Homepage",
+        "type": "literal",
+        "lang": "en"
+      },
+      {
+        "value": "Annas hjemmeside",
+        "type": "literal"
+      },
+      {
+        "value": "https://vocab.qworum.net/user/",
+        "type": "uri"
+      },
+      {
+        "value": "_:bbb",
+        "type": "bnode"
+      }
+    ]
+  }
+}
 ```
 
 ∎
