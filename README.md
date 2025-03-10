@@ -19,7 +19,7 @@ deno run --allow-net --allow-run --allow-env --allow-read jsr:@andrewbrey/mdrb@3
 
 <pre>
 description = '''
-Parse RDF-JSON to and RDF dataset, and back to RDF-JSON.
+Parse RDF-JSON to/from an RDF dataset.
 '''
 </pre>
 </details>
@@ -41,63 +41,48 @@ rdfJsonIn = {
 rdfDataset = parse(rdfJsonIn),
 rdfJsonOut = serialise(rdfDataset);
 
-console.info('Quads in the RDF dataset:');
+console.group('Quads in the RDF dataset:');
 for (const quad of rdfDataset) {
-  console.info('  Quad:');
-  // print subject type
-  console.info(`    subject "${quad.subject.value}" is a ${quad.subject.termType}`);
-  console.info(`    predicate "${quad.predicate.value}" is a ${quad.predicate.termType}`);
-  console.info(`    object "${quad.object.value}" is a ${quad.object.termType}`);
+  console.group('Quad:');
+  console.info(`Subject:   ${quad.subject.termType} "${quad.subject.value}".`);
+  console.info(`Predicate: ${quad.predicate.termType} "${quad.predicate.value}".`);
+  console.info(`Object:    ${quad.object.termType}   "${quad.object.value}".`);
+  console.groupEnd();
 }
+console.groupEnd();
 
-console.info(`
-RDF-JSON serialisation of the dataset:
-${JSON.stringify(rdfJsonOut, null, 2)}
-`);
+console.info('\nRDF-JSON serialisation of the RDF dataset:\n', rdfJsonOut);
 ```
 
 Sample output for the code above:
 
 ```text
 Quads in the RDF dataset:
-  Quad:
-    subject "http://example.org/about" is a NamedNode
-    predicate "http://purl.org/dc/terms/title" is a NamedNode
-    object "Anna's Homepage" is a Literal
-  Quad:
-    subject "http://example.org/about" is a NamedNode
-    predicate "http://purl.org/dc/terms/title" is a NamedNode
-    object "Annas hjemmeside" is a Literal
-  Quad:
-    subject "http://example.org/about" is a NamedNode
-    predicate "http://purl.org/dc/terms/title" is a NamedNode
-    object "https://vocab.qworum.net/user/" is a NamedNode
-  Quad:
-    subject "http://example.org/about" is a NamedNode
-    predicate "http://purl.org/dc/terms/title" is a NamedNode
-    object "bbb" is a BlankNode
+    Quad:
+        Subject:   NamedNode "http://example.org/about".
+        Predicate: NamedNode "http://purl.org/dc/terms/title".
+        Subject:   Literal   "Anna's Homepage".
+    Quad:
+        Subject:   NamedNode "http://example.org/about".
+        Predicate: NamedNode "http://purl.org/dc/terms/title".
+        Subject:   Literal   "Annas hjemmeside".
+    Quad:
+        Subject:   NamedNode "http://example.org/about".
+        Predicate: NamedNode "http://purl.org/dc/terms/title".
+        Subject:   NamedNode   "https://vocab.qworum.net/user/".
+    Quad:
+        Subject:   NamedNode "http://example.org/about".
+        Predicate: NamedNode "http://purl.org/dc/terms/title".
+        Subject:   BlankNode   "bbb".
 
-RDF-JSON serialisation of the dataset:
-{
+RDF-JSON serialisation of the RDF dataset:
+ {
   "http://example.org/about": {
     "http://purl.org/dc/terms/title": [
-      {
-        "value": "Anna's Homepage",
-        "type": "literal",
-        "lang": "en"
-      },
-      {
-        "value": "Annas hjemmeside",
-        "type": "literal"
-      },
-      {
-        "value": "https://vocab.qworum.net/user/",
-        "type": "uri"
-      },
-      {
-        "value": "_:bbb",
-        "type": "bnode"
-      }
+      { value: "Anna's Homepage", type: "literal", lang: "en" },
+      { value: "Annas hjemmeside", type: "literal" },
+      { value: "https://vocab.qworum.net/user/", type: "uri" },
+      { value: "_:bbb", type: "bnode" }
     ]
   }
 }
