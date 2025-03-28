@@ -61,19 +61,19 @@ Quads in the RDF dataset:
     Quad:
         Subject:   NamedNode "http://example.org/about".
         Predicate: NamedNode "http://purl.org/dc/terms/title".
-        Subject:   Literal   "Anna's Homepage".
+        Object:    Literal   "Anna's Homepage".
     Quad:
         Subject:   NamedNode "http://example.org/about".
         Predicate: NamedNode "http://purl.org/dc/terms/title".
-        Subject:   Literal   "Annas hjemmeside".
+        Object:    Literal   "Annas hjemmeside".
     Quad:
         Subject:   NamedNode "http://example.org/about".
         Predicate: NamedNode "http://purl.org/dc/terms/title".
-        Subject:   NamedNode   "https://vocab.qworum.net/user/".
+        Object:    NamedNode   "https://vocab.qworum.net/user/".
     Quad:
         Subject:   NamedNode "http://example.org/about".
         Predicate: NamedNode "http://purl.org/dc/terms/title".
-        Subject:   BlankNode   "bbb".
+        Object:    BlankNode   "bbb".
 
 RDF-JSON serialisation of the RDF dataset:
  {
